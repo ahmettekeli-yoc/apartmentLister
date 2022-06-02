@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { websites, excludeWords } = require('../sources');
+const { websites, excludeWords } = require('../../sources');
 
 const deutcheWohnen = websites[0];
 

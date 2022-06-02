@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { websites, excludeWords } = require('../sources');
+const { websites, excludeWords } = require('../../sources');
 
 const degewo = websites[1];
 
@@ -86,7 +86,7 @@ async function getPageCount(page) {
 
 module.exports = scrapDegewo;
 
-(async function () {
-    const data = await scrapDegewo();
-    console.log(data);
-})();
+// (async function () {
+//     const data = await scrapDegewo();
+//     console.log(data);
+// })();
