@@ -31,7 +31,7 @@ const jobFn = () => {
 
 /** TODO:
  *  - Daireleri bir yere kaydet.
- *  - Telegramdan mesaj gonder.
+ *  + Telegramdan mesaj gonder.
  *  - Her saat calistir. Ayni daireleri kaydetme
  *  - Yeni daire varsa telegramdan mesaj gonder.
  */
