@@ -84,9 +84,9 @@ async function getPageCount(page) {
     });
 }
 
-module.exports = scrapDegewo;
-
 // (async function () {
 //     const data = await scrapDegewo();
 //     console.log(data);
 // })();
+
+module.exports = scrapDegewo;

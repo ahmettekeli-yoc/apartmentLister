@@ -3,17 +3,11 @@ const axios = require('axios').default;
 const { Telegraf } = require('telegraf');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
+
 bot.command('start', (ctx) => ctx.reply('OK, I am starting to look for apartments.'));
 bot.command('stop', Telegraf.reply('Stopping to look for apartments.'));
 bot.command('list', Telegraf.reply('Here are the apartments I have found:'));
-// bot.command('newapartment', Telegraf.reply('I found a new apartment for you!'));
-// bot.command('newapartment', () => {
-//     messageToGroup('here is a new apartment');
-// });
 bot.launch();
-
-// messageToGroup('naber');
-messagePrivately('Naber Ahmet?');
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
@@ -33,15 +27,22 @@ function messageToGroup(message) {
         });
 }
 
+// function messagePrivately(message) {
+//     const encodedMessage = encodeURI(message);
+//     const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_PRIVATE_CHAT_ID}&text=${encodedMessage}`;
+//     axios
+//         .post(url)
+//         .then((data) => {
+//             console.log('success');
+//         })
+//         .catch((error) => {
+//             console.log('error:', error);
+//         });
+// }
+
+
 function messagePrivately(message) {
-    const encodedMessage = encodeURI(message);
-    const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_PRIVATE_CHAT_ID}&text=${encodedMessage}`;
-    axios
-        .post(url)
-        .then((data) => {
-            console.log('success');
-        })
-        .catch((error) => {
-            console.log('error');
-        });
+    bot.telegram.sendMessage(process.env.TELEGRAM_PRIVATE_CHAT_ID, message);
 }
+
+module.exports = {messagePrivately};
