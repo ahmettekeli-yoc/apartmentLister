@@ -1,52 +1,66 @@
 const scrapDeutscheWohnen = require('./scrappers/deutsche-wohnen');
 const scrapDegewo = require('./scrappers/degewo');
 const scrapHowoge = require('./scrappers/howoge');
-const { scheduleJob, shutdownJob } = require('./scheduler');
+const { scheduleJob } = require('./scheduler');
 const { messagePrivately } = require('./telegramBot');
 
 const everyHour = ' 35 * * * *';
 const everyMinute = '0 * * * * *';
-const repeatTime = everyHour;
+const repeatTime = everyMinute;
 
 let degewoApartments;
 let deutscheWohnenApartments;
-let hogowerApartments;
+let howogeApartments;
+
+let lastApartments = [];
+let newApartments;
+
 let isFirstReport = true;
-let message = `Here are the apartment(s) I have found: \n\n`;
+let message;
 
 async function findApartments() {
-    // deutscheWohnenApartments = await scrapDeutscheWohnen();
-    // degewoApartments = await scrapDegewo();
-    // hogowerApartments = await scrapHowoge();
-    // return [deutscheWohnenApartments, degewoApartments, hogowerApartments];
-        hogowerApartments = await scrapHowoge();
-    return [hogowerApartments];
+    deutscheWohnenApartments = await scrapDeutscheWohnen();
+    degewoApartments = await scrapDegewo();
+    howogeApartments = await scrapHowoge();
+
+    howogeApartments ? null : (howogeApartments = { apartments: [] });
+    degewoApartments ? null : (degewoApartments = { apartments: [] });
+    deutscheWohnenApartments ? null : (deutscheWohnenApartments = { apartments: [] });
+
+    return [...deutscheWohnenApartments.apartments, ...degewoApartments.apartments, ...howogeApartments.apartments];
 }
 
 
-// setTimeout(() => {
-//     shutdownJob(); 
-// }, 61000);
-
-(async function () {
+async function searchApartments() {
     const apartmentListings = await findApartments();
-    if(isFirstReport){
+    message = `I have found ${apartmentListings.length} apartment(s) \n\n`;
+    if (isFirstReport) {
         isFirstReport = false;
-        console.log('listings',apartmentListings);
-        apartmentListings.forEach(listingSource => {
-            console.log('source:',listingSource)
-            listingSource.apartments.forEach(apartment => {
+        apartmentListings.forEach((apartment) => {
+            message += `${apartment.title} \n ${apartment.address} \n ${apartment.price} \n ${apartment.rooms} \n ${apartment.size} \n ${apartment.url} \n\n`;
+        });
+        lastApartments = [...apartmentListings];
+        messagePrivately(message);
+    } else {
+        const newApartments = apartmentListings.filter(
+            (apartment) => !lastApartments.some((lastApartment) => lastApartment.url === apartment.url)
+        );
+        if (newApartments.length > 0) {
+            message = `I have found ${newApartments.length} new apartment(s) \n\n`
+            newApartments.forEach((apartment) => {
                 message += `${apartment.title} \n ${apartment.address} \n ${apartment.price} \n ${apartment.rooms} \n ${apartment.size} \n ${apartment.url} \n\n`;
             });
-        });
+            lastApartments = [...apartmentListings];
+            messagePrivately(message);
+        } else {
+            message += 'No new apartments found';
+        }
     }
-    // console.log(apartmentListings);
-    scheduleJob(()=>{messagePrivately(message)}, repeatTime);
-})();
+    console.log('--------------------------------------------------------------');
+    console.log('message', message);
+}
 
-/** TODO:
- *  - Daireleri bir yere kaydet.
- *  + Telegramdan mesaj gonder.
- *  - Her saat calistir. Ayni daireleri kaydetme
- *  - Yeni daire varsa telegramdan mesaj gonder.
- */
+scheduleJob(async () => {
+    await searchApartments();
+}, repeatTime);
+

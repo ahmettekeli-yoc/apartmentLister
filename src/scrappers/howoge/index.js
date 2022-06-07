@@ -19,7 +19,8 @@ async function scrapHowoge() {
             await page.waitFor(1000);
             data = data.concat(await retrieveApartments(page));
 
-            if (index != lastPageNumber - 1) {
+            if (lastPageNumber > 1 && index != lastPageNumber - 1) {
+                await page.waitFor(1000);
                 await page.click('li[class="pagination--page-next"]');
             }
         }

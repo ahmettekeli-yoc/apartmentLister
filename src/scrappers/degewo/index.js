@@ -12,7 +12,6 @@ async function scrapDegewo() {
         const page = await browser.newPage();
         await page.goto(degewo.targetUrl);
         //scroll to the bottom.
-        await page.screenshot({ path: 'fullpage.png', fullPage: true });
         //retrieve page count from pagination
         const lastPageNumber = await getPageCount(page);
         let data = [];
