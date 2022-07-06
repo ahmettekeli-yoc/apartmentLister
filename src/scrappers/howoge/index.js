@@ -79,7 +79,7 @@ async function getPageCount(page) {
 
 module.exports = scrapHowoge;
 
-// (async function () {
-//     const data = await scrapHowoge();
-//     console.log(data);
-// })();
+(async function () {
+    const data = await scrapHowoge();
+    console.log(data);
+})();

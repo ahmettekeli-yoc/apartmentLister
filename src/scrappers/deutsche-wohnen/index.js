@@ -71,7 +71,7 @@ async function getPageCount(page) {
 
 module.exports = scrapDeutcheWohnen;
 
-// (async function () {
-//     const data = await scrapDeutcheWohnen();
-//     console.log(data);
-// })();
+(async function () {
+    const data = await scrapDeutcheWohnen();
+    console.log(data);
+})();

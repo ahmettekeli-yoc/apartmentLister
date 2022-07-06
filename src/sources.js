@@ -9,6 +9,8 @@ const websites = [
         name: 'degewo',
         baseUrl: 'https://www.degewo.de/',
         targetUrl:
+            'https://immosuche.degewo.de/de/search?size=10&page=1&property_type_id=1&categories%5B%5D=1&lat=&lon=&area=&address%5Bstreet%5D=&address%5Bcity%5D=&address%5Bzipcode%5D=&address%5Bdistrict%5D=&address%5Braw%5D=&district=&property_number=&price_switch=true&price_radio=1200-warm&price_from=&price_to=&qm_radio=custom&qm_from=40&qm_to=&rooms_radio=custom&rooms_from=1&rooms_to=3&wbs_required=&order=rent_total_without_vat_asc',
+        targetUrl2:
             'https://immosuche.degewo.de/de/search?size=10&page=1&property_type_id=1&categories%5B%5D=1&lat=&lon=&area=&address%5Bstreet%5D=&address%5Bcity%5D=&address%5Bzipcode%5D=&address%5Bdistrict%5D=&district=33%2C+46%2C+3%2C+2%2C+28%2C+29%2C+71%2C+64&property_number=&price_switch=true&price_radio=null&price_from=&price_to=&qm_radio=null&qm_from=&qm_to=&rooms_radio=custom&rooms_from=2&rooms_to=3&wbs_required=&order=rent_total_without_vat_asc',
     },
     {
@@ -21,7 +23,7 @@ const websites = [
         name: 'vonovia',
         baseUrl: 'https://www.vonovia.de',
         targetUrl:
-            'https://www.vonovia.de/de-de/immobiliensuche/?rentType=miete&immoType=wohnung&city=Berlin,%20Almanya&perimeter=0&priceMaxRenting=1200&priceMinRenting=0&sizeMin=0&sizeMax=0&minRooms=1&dachgeschoss=0&erdgeschoss=0&lift=0&balcony=0&sofortfrei=0&disabilityAccess=0&subsidizedHousingPermit=0',
+            'https://www.vonovia.de/de-de/immobiliensuche?rentType=miete&immoType=wohnung&city=10405%20Berlin,%20Almanya&perimeter=15&priceMaxRenting=1100&priceMinRenting=0&sizeMin=45&sizeMax=0&minRooms=1&dachgeschoss=0&erdgeschoss=0&lift=0&balcony=0&sofortfrei=0&disabilityAccess=0&subsidizedHousingPermit=0',
     },
 ];
 
