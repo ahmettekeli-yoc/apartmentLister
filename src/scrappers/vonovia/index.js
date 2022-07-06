@@ -84,9 +84,9 @@ async function getPageCount(page) {
     });
 }
 
-(async function () {
-    const data = await scrapVonovia();
-    console.log(data);
-})();
+// (async function () {
+//     const data = await scrapVonovia();
+//     console.log(data);
+// })();
 
 module.exports = scrapVonovia;

@@ -44,12 +44,16 @@ async function retrieveApartments(page) {
 
         adElements.forEach((element) => {
             const title = element.children[1].children[0].innerText;
+            const rooms = element.children[1].children[2].children[1].innerText.split('|')[0].split(' ')[0];
             if (!title.toLowerCase().includes('wbs')) {
+                if(rooms <=1){
+                    return;
+                }
                 ads.push({
                     title: title,
                     address: element.children[1].children[1].innerText.replace(/\s+/g, ' ').trim(),
                     price: element.children[1].children[3].innerText.replace(/\s+/g, ' ').trim(),
-                    rooms: element.children[1].children[2].children[1].innerText.split('|')[0],
+                    rooms: rooms + ' Zimmer',
                     size: element.children[1].children[2].children[0].innerText.split('|')[0],
                     url: element.children[1].href,
                 });
@@ -71,7 +75,7 @@ async function getPageCount(page) {
 
 module.exports = scrapDeutcheWohnen;
 
-(async function () {
-    const data = await scrapDeutcheWohnen();
-    console.log(data);
-})();
+// (async function () {
+//     const data = await scrapDeutcheWohnen();
+//     console.log(data);
+// })();

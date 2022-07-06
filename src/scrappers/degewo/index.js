@@ -95,9 +95,9 @@ async function getPageCount(page) {
     });
 }
 
-(async function () {
-    const data = await scrapDegewo();
-    console.log(data);
-})();
+// (async function () {
+//     const data = await scrapDegewo();
+//     console.log(data);
+// })();
 
 module.exports = scrapDegewo;

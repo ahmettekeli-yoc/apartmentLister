@@ -46,6 +46,10 @@ async function retrieveApartments(page) {
             //handle wbs situation here "ohne wbs" and "wbs" difference is important
             if (title.toLowerCase().includes('ohne wbs') || !title.toLowerCase().includes('wbs')) {
                 if (!Array.from(element.classList).includes('flat-single-teaser')) {
+                    const rooms = element.children[1].children[3].children[0].children[0].children[2].innerText.replace(/\s+/g, ' ').trim().split(' ')[0];
+                    if(rooms <=1){
+                        return;
+                    }
                     let apartmentData;
                     apartmentData = {
                         title: title,
@@ -54,9 +58,7 @@ async function retrieveApartments(page) {
                         price: element.children[1].children[3].children[0].children[0].children[0].innerText
                             .replace(/\s+/g, ' ')
                             .trim(),
-                        rooms: element.children[1].children[3].children[0].children[0].children[2].innerText
-                            .replace(/\s+/g, ' ')
-                            .trim(),
+                        rooms: rooms + " Zimmer",
                         size: element.children[1].children[3].children[0].children[0].children[1].children[1].innerText,
                         url: element.children[1].children[2].children[0].href,
                     };
@@ -79,7 +81,7 @@ async function getPageCount(page) {
 
 module.exports = scrapHowoge;
 
-(async function () {
-    const data = await scrapHowoge();
-    console.log(data);
-})();
+// (async function () {
+//     const data = await scrapHowoge();
+//     console.log(data);
+// })();
