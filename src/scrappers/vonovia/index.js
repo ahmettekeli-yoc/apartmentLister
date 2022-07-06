@@ -17,7 +17,7 @@ async function scrapVonovia() {
             googleToggle.click();
         })
         await page.waitFor(5000);
-        await page.screenshot({path: 'screenshot.png', fullPage: true});
+        // await page.screenshot({path: 'screenshot.png', fullPage: true});
         //retrieve page count from pagination
         const lastPageNumber = await getPageCount(page);
         let data = [];
@@ -49,8 +49,7 @@ async function retrieveApartments(page) {
         let ads = [];
         adElements.forEach((element) => {
             const title = element.children[1].children[0].children[1].children[0].children[0].innerText;
-            // const withWbs = element.children[0].children[1].children[4].children[3] ? true : false;
-            const withWbs = true;
+            const withWbs = element.children[0].children[1].children[4].children[3] ? true : false;
             if (!title.toLowerCase().includes('wbs') && !withWbs) {
                 let apartmentData;
                 apartmentData = {
